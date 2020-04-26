@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{43A03455-D9D8-40FE-A639-436CB3D5C0EC}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="RestClient.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Test\TestProject.dproj">
+            <Dependencies>RestClient.dproj</Dependencies>
+        </Projects>
+        <Projects Include="ProjectTestServer.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="RestClient">
+        <MSBuild Projects="RestClient.dproj"/>
+    </Target>
+    <Target Name="RestClient:Clean">
+        <MSBuild Projects="RestClient.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RestClient:Make">
+        <MSBuild Projects="RestClient.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TestProject" DependsOnTargets="RestClient">
+        <MSBuild Projects="Test\TestProject.dproj"/>
+    </Target>
+    <Target Name="TestProject:Clean" DependsOnTargets="RestClient:Clean">
+        <MSBuild Projects="Test\TestProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TestProject:Make" DependsOnTargets="RestClient:Make">
+        <MSBuild Projects="Test\TestProject.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ProjectTestServer">
+        <MSBuild Projects="ProjectTestServer.dproj"/>
+    </Target>
+    <Target Name="ProjectTestServer:Clean">
+        <MSBuild Projects="ProjectTestServer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ProjectTestServer:Make">
+        <MSBuild Projects="ProjectTestServer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="RestClient;TestProject;ProjectTestServer"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="RestClient:Clean;TestProject:Clean;ProjectTestServer:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="RestClient:Make;TestProject:Make;ProjectTestServer:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
