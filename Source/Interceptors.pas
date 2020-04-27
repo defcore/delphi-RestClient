@@ -47,7 +47,7 @@ var
   arguments : TArray<TValue>;
   i : Integer;
 begin
-  Writeln('Before ', invocation.Method.Parent.Name, '.', invocation.Method.Name, '....');
+  //Writeln('Before ', invocation.Method.Parent.Name, '.', invocation.Method.Name, '....');
   bodyParam := nil;
 
   pathAttribute := invocation.Method.Parent.GetCustomAttribute<PATH>;
@@ -88,12 +88,12 @@ begin
         value := arguments[i];
 
         if (a.ClassNameIs(PathParam.ClassName)) then begin
-          writeln(value.TypeInfo.Name);
+          //writeln(value.TypeInfo.Name);
           // TODO add other types of pathparams at the moment only integer is used
           tmpReplaceString := '{'+ p.Name+'}';
           endpoint := StringReplace(endpoint, tmpReplaceString, IntToStr(value.AsInteger), [rfReplaceAll, rfIgnoreCase]);
 
-          Writeln('path ' + endpoint) ;
+          //Writeln('path ' + endpoint) ;
         end
         else if (a.ClassNameIs('BodyParam')) then begin
           if (value.IsObject) then
@@ -117,11 +117,11 @@ begin
   end;
 
 
+  FreeAndNil( restCaller);
 
 
 
-
-
+   {
 
   // TODO remove onyly for testing reasons
 
@@ -175,6 +175,7 @@ begin
   // proceed function call
 //  invocation.Proceed;
   Writeln('After ', invocation.Method.Name, '....');
+  }
 end;
 
 

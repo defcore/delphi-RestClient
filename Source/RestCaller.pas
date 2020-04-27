@@ -50,6 +50,7 @@ TRestCaller = class(TDataModule)
     procedure SetServerURL(const AServerURL: String);
     function DoRestCall(const ARescource: String; const AType: TRestType; AResultType: TRttiType): TObject; overload;
     function DoRestCall(const ARescource: String; const AType: TRestType; AResultType: TRttiType; ABodyParam: TObject): TObject; overload;
+    function DoStandardRestCall(const ARescource: String; const AType: TRestType): TTodo; deprecated;
   end;
 
 implementation
@@ -94,6 +95,43 @@ begin
 end;
 
 
+function TRestCaller.DoStandardRestCall(const ARescource: String; const AType: TRestType): TTodo;
+var
+  resResourceJSON: TWiRLClientResourceJSON;
+begin
+  try
+    resResourceJSON := TWiRLClientResourceJSON.Create(Self);
+    try
+      resResourceJSON.Application := WiRLApplication;
+      resResourceJSON.Resource := ARescource;
+
+      if (AType = TRestType.GET) then
+        resResourceJSON.GET()
+      else if (AType = TRestType.POST) then
+         resResourceJSON.POST()
+      else if (AType = TRestType.PUT) then
+        resResourceJSON.PUT()
+      else if (AType = TRestType.DELETE) then
+        resResourceJSON.DELETE();
+
+      //Writeln(resResourceJSON.ResponseAsString);
+
+      try
+        Result := TNeon.JSONToObject<TTodo>(resResourceJSON.Response,DoBuildSerializerConfig);
+      except  on E: Exception do
+          Writeln(E.Message);
+      end;
+    finally
+      // TODO freeandnil
+      resResourceJSON.DisposeOf;
+    end;
+  except
+    on E: Exception do
+      raise Exception.CreateFmt('RESTRequest execution failed with code %s', [E.Message]);
+  end;
+end;
+
+
 function TRestCaller.DoRestCall(const ARescource: String; const AType: TRestType; AResultType: TRttiType): TObject;
 var
   resResourceJSON: TWiRLClientResourceJSON;
@@ -113,7 +151,7 @@ begin
       else if (AType = TRestType.DELETE) then
         resResourceJSON.DELETE();
 
-      Writeln(resResourceJSON.ResponseAsString);
+      //Writeln(resResourceJSON.ResponseAsString);
 
       try
         Result := TNeon.JSONToObject(AResultType, resResourceJSON.Response,DoBuildSerializerConfig);
@@ -151,7 +189,7 @@ begin
       else if (AType = TRestType.DELETE) then
         resResourceJSON.DELETE(); // TODO make exception not possible to pass bodyparam
 
-      Writeln(resResourceJSON.ResponseAsString);
+      //Writeln(resResourceJSON.ResponseAsString);
 
       try
         Result := TNeon.JSONToObject(AResultType, resResourceJSON.Response,DoBuildSerializerConfig);

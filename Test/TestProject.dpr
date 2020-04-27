@@ -12,11 +12,12 @@ uses
   DUnitX.Loggers.Xml.NUnit,
   DUnitX.TestFramework,
   Test in 'Test.pas',
-  Interceptors in '..\Interceptors.pas',
-  Attributes in '..\Attributes.pas',
-  RestCaller in '..\RestCaller.pas',
-  Sample in '..\Sample.pas',
-  Server.Recources.Todos in '..\Server.Recources.Todos.pas';
+  Attributes in '..\Source\Attributes.pas',
+  Interceptors in '..\Source\Interceptors.pas',
+  RestCaller in '..\Source\RestCaller.pas',
+  RestClient.Core in '..\Source\RestClient.Core.pas',
+  Sample in '..\Demo\Sample.pas',
+  Server.Recources.Todos in '..\Demo\Server.Recources.Todos.pas';
 
 var
   runner : ITestRunner;

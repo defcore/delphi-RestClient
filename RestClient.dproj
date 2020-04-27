@@ -178,11 +178,11 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Interceptors.pas"/>
-        <DCCReference Include="Sample.pas"/>
-        <DCCReference Include="Attributes.pas"/>
-        <DCCReference Include="RestCaller.pas"/>
-        <DCCReference Include="RestClient.Core.pas"/>
+        <DCCReference Include="Source\Attributes.pas"/>
+        <DCCReference Include="Source\Interceptors.pas"/>
+        <DCCReference Include="Source\RestCaller.pas"/>
+        <DCCReference Include="Source\RestClient.Core.pas"/>
+        <DCCReference Include="Demo\Sample.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

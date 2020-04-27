@@ -12,11 +12,11 @@ uses
   Spring.Container.Common,
   Spring.Interception,
   System.Rtti,
-  Interceptors in 'Interceptors.pas',
-  Sample in 'Sample.pas',
-  Attributes in 'Attributes.pas',
-  RestCaller in 'RestCaller.pas',
-  RestClient.Core in 'RestClient.Core.pas';
+  Attributes in 'Source\Attributes.pas',
+  Interceptors in 'Source\Interceptors.pas',
+  RestCaller in 'Source\RestCaller.pas',
+  RestClient.Core in 'Source\RestClient.Core.pas',
+  Sample in 'Demo\Sample.pas';
 
 var
   sampleRestClient: ISampleRestClient;

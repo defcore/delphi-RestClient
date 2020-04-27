@@ -12,6 +12,9 @@
         <Projects Include="ProjectTestServer.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="PerformanceTests.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -47,14 +50,23 @@
     <Target Name="ProjectTestServer:Make">
         <MSBuild Projects="ProjectTestServer.dproj" Targets="Make"/>
     </Target>
+    <Target Name="PerformanceTests">
+        <MSBuild Projects="PerformanceTests.dproj"/>
+    </Target>
+    <Target Name="PerformanceTests:Clean">
+        <MSBuild Projects="PerformanceTests.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PerformanceTests:Make">
+        <MSBuild Projects="PerformanceTests.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="RestClient;TestProject;ProjectTestServer"/>
+        <CallTarget Targets="RestClient;TestProject;ProjectTestServer;PerformanceTests"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="RestClient:Clean;TestProject:Clean;ProjectTestServer:Clean"/>
+        <CallTarget Targets="RestClient:Clean;TestProject:Clean;ProjectTestServer:Clean;PerformanceTests:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="RestClient:Make;TestProject:Make;ProjectTestServer:Make"/>
+        <CallTarget Targets="RestClient:Make;TestProject:Make;ProjectTestServer:Make;PerformanceTests:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

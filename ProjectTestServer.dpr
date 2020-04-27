@@ -12,10 +12,15 @@ uses
   WiRL.Core.Engine,
   WiRL.http.Server,
   WiRL.http.Server.Indy,
-   WiRL.Configuration.Core,
-    WiRL.Configuration.Neon,
-     Neon.Core.Types,
-  Server.Recources.Todos in 'Server.Recources.Todos.pas';
+  WiRL.Configuration.Core,
+  WiRL.Configuration.Neon,
+  Neon.Core.Types,
+  Server.Recources.Todos in 'Demo\Server.Recources.Todos.pas',
+  Sample in 'Demo\Sample.pas',
+  Attributes in 'Source\Attributes.pas',
+  Interceptors in 'Source\Interceptors.pas',
+  RestCaller in 'Source\RestCaller.pas',
+  RestClient.Core in 'Source\RestClient.Core.pas';
 
 var
   WiRLConsole: TWiRLConsoleBase;

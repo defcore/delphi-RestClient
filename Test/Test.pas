@@ -103,13 +103,13 @@ end;
 procedure TTestRestClient.Test1;
 var
   todo : TTodo;
-  sample : ISample;
+  sample : ISampleRestClient;
 begin
   GlobalContainer.RegisterType<IInterceptor, TRestClientInterceptor>('client');
-  GlobalContainer.RegisterType<ISample, TSample>;
+  GlobalContainer.RegisterType<ISampleRestClient, TSampleRestClient>;
   GlobalContainer.Build;
 
-  sample := GlobalContainer.Resolve<ISample>;
+  sample := GlobalContainer.Resolve<ISampleRestClient>;
 
   todo := sample.GetTodo(1);
 
