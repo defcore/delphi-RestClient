@@ -1,6 +1,6 @@
 # delphi-RestClient
 
-RestClient helps to speedup implementation of delphi clients for rest endpoints by providing some custom attributes. This helps to write less code and therefor make less errors.
+RestClient helps to speedup implementation of delphi clients for rest endpoints by providing some custom attributes.
 
 This library makes use of following libraries:
 [WiRL](https://github.com/delphi-blocks/WiRL)
@@ -37,17 +37,17 @@ end;
 implementation
  function TSampleRestClient.GetTodo(id: Integer): TTodo;
  begin
-    // NO implementations needed
+    // NO implementation needed
  end;
 
  function TSampleRestClient.GetTodos: TObjectList<TTodo>;
  begin
-    // NO implementations needed
+    // NO implementation needed
  end;
 
  function TSampleRestClient.CreateTodo(param: TTodo): TResponse;
  begin
-    // NO implementations needed
+    // NO implementation needed
  end;
 end.
 ```
@@ -66,7 +66,7 @@ todo := sampleRestClient.GetTodo(1);
 ```
 
 
-## TODO
+## TODOs
 
 * Add possibility to pass some custom headers on functions or classes ```[Header('X-Name', 'Alex')]``` also give posibillity to pass them in a more dynamic way as a Param ```[Header('X-Name')] AHeaderName: String```
 * Add HTTP status code results ```[StatusCode] AStatusCode: Integer``` or even better use exceptions instead
@@ -80,3 +80,8 @@ todo := sampleRestClient.GetTodo(1);
 
 * Add local cache ```[Cache( TIME )]``` to keep results of the rest calls somewehere (memory or local db) for the period of TIME. 
 
+
+## Open questions
+
+* Is there a way of doing something similar of the interceptor instead of using Spring. 
+* Is it possible to use only the interface or the object declaration without a implementation. Beacause it is to much boilerplate code.
