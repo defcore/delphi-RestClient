@@ -4,6 +4,7 @@ RestClient helps to speedup implementation of delphi clients for rest endpoints 
 
 This library makes use of following libraries:
 [WiRL](https://github.com/delphi-blocks/WiRL)
+delphi-neon
 [Spring4D](https://bitbucket.org/sglienke/spring4d/src)
 
 ## Usage
@@ -85,3 +86,10 @@ todo := sampleRestClient.GetTodo(1);
 
 * Is there a way of doing something similar of the interceptor instead of using Spring. 
 * Is it possible to use only the interface or the object declaration without a implementation. Beacause it is to much boilerplate code.
+* Maybe use delphi default client objects instead wirl client 
+
+
+## Performance Tests
+10.000 iterations avarage value:
+This RestClient:    2,4182 ms
+Wirl Client:        2,2715 ms
