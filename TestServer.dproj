@@ -3,7 +3,7 @@
         <ProjectGuid>{33F03093-B467-4C10-B050-95558E96DBF9}</ProjectGuid>
         <ProjectVersion>18.8</ProjectVersion>
         <FrameworkType>None</FrameworkType>
-        <MainSource>ProjectTestServer.dpr</MainSource>
+        <MainSource>TestServer.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -83,7 +83,7 @@
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
-        <SanitizedProjectName>ProjectTestServer</SanitizedProjectName>
+        <SanitizedProjectName>TestServer</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;tethering;FireDACDBXDriver;RESTBackendComponents;bindengine;CloudService;DataSnapClient;bindcompdbx;IndyIPServer;IndySystem;fmxFireDAC;soaprtl;DbxCommonDriver;xmlrtl;soapmidas;DataSnapNativeClient;rtl;DbxClientDriver;IndyIPClient;DataSnapProviderClient;RESTComponents;DBXInterBaseDriver;DataSnapFireDAC;bindcompfmx;FireDACIBDriver;fmx;dbexpress;IndyCore;dsnap;DataSnapCommon;FireDACCommon;soapserver;FireDACCommonDriver;inet;IndyIPCommon;FireDAC;FireDACSqliteDriver;ibmonitor;ibxpress;ibxbindings;FireDACDSDriver;CustomIPTransport;bindcomp;dbxcds;dsnapxml;dbrtl;IndyProtocols;$(DCC_UsePackage)</DCC_UsePackage>
@@ -180,9 +180,9 @@
         </DelphiCompile>
         <DCCReference Include="Demo\Server.Recources.Todos.pas"/>
         <DCCReference Include="Demo\Sample.pas"/>
-        <DCCReference Include="Source\Attributes.pas"/>
-        <DCCReference Include="Source\Interceptors.pas"/>
-        <DCCReference Include="Source\RestCaller.pas"/>
+        <DCCReference Include="Source\RestClient.Core.Attributes.pas"/>
+        <DCCReference Include="Source\RestClient.Core.Interceptor.pas"/>
+        <DCCReference Include="Source\RestClient.Core.RestCaller.pas"/>
         <DCCReference Include="Source\RestClient.Core.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -202,7 +202,7 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">ProjectTestServer.dpr</Source>
+                    <Source Name="MainSource">TestServer.dpr</Source>
                 </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\hgide260.bpl">Embarcadero Mercurial Integration</Excluded_Packages>
@@ -212,9 +212,9 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Debug\ProjectTestServer.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Win32\Debug\TestServer.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>ProjectTestServer.exe</RemoteName>
+                        <RemoteName>TestServer.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

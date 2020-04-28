@@ -1,4 +1,4 @@
-program TestProject;
+program UnitTest;
 
 {$IFNDEF TESTINSIGHT}
 {$APPTYPE CONSOLE}
@@ -12,9 +12,9 @@ uses
   DUnitX.Loggers.Xml.NUnit,
   DUnitX.TestFramework,
   Test in 'Test.pas',
-  Attributes in '..\Source\Attributes.pas',
-  Interceptors in '..\Source\Interceptors.pas',
-  RestCaller in '..\Source\RestCaller.pas',
+  RestClient.Core.Attributes in '..\Source\RestClient.Core.Attributes.pas',
+  RestClient.Core.Interceptor in '..\Source\RestClient.Core.Interceptor.pas',
+  RestClient.Core.RestCaller in '..\Source\RestClient.Core.RestCaller.pas',
   RestClient.Core in '..\Source\RestClient.Core.pas',
   Sample in '..\Demo\Sample.pas',
   Server.Recources.Todos in '..\Demo\Server.Recources.Todos.pas';

@@ -8,7 +8,7 @@ uses
   Spring.Container,
   Spring.Container.Common,
   Spring.Interception,
-  Interceptors;
+  RestClient.Core.Interceptor;
 
 type
   TRestClient = class

@@ -3,7 +3,7 @@
         <ProjectGuid>{5656B197-6CF8-4F26-810E-A9542AF79E21}</ProjectGuid>
         <ProjectVersion>18.8</ProjectVersion>
         <FrameworkType>None</FrameworkType>
-        <MainSource>TestProject.dpr</MainSource>
+        <MainSource>UnitTest.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -86,7 +86,7 @@
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <DCC_UnitSearchPath>$(DUnitX);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-        <SanitizedProjectName>TestProject</SanitizedProjectName>
+        <SanitizedProjectName>UnitTest</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;tethering;FireDACDBXDriver;RESTBackendComponents;bindengine;CloudService;DataSnapClient;bindcompdbx;IndyIPServer;IndySystem;fmxFireDAC;soaprtl;DbxCommonDriver;xmlrtl;soapmidas;DataSnapNativeClient;rtl;DbxClientDriver;IndyIPClient;DataSnapProviderClient;RESTComponents;DBXInterBaseDriver;DataSnapFireDAC;bindcompfmx;FireDACIBDriver;fmx;dbexpress;IndyCore;dsnap;DataSnapCommon;FireDACCommon;soapserver;FireDACCommonDriver;inet;IndyIPCommon;FireDAC;FireDACSqliteDriver;ibmonitor;ibxpress;ibxbindings;FireDACDSDriver;CustomIPTransport;bindcomp;dbxcds;dsnapxml;dbrtl;IndyProtocols;$(DCC_UsePackage)</DCC_UsePackage>
@@ -146,9 +146,9 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="Test.pas"/>
-        <DCCReference Include="..\Source\Attributes.pas"/>
-        <DCCReference Include="..\Source\Interceptors.pas"/>
-        <DCCReference Include="..\Source\RestCaller.pas"/>
+        <DCCReference Include="..\Source\RestClient.Core.Attributes.pas"/>
+        <DCCReference Include="..\Source\RestClient.Core.Interceptor.pas"/>
+        <DCCReference Include="..\Source\RestClient.Core.RestCaller.pas"/>
         <DCCReference Include="..\Source\RestClient.Core.pas"/>
         <DCCReference Include="..\Demo\Sample.pas"/>
         <DCCReference Include="..\Demo\Server.Recources.Todos.pas"/>
@@ -170,7 +170,7 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">TestProject.dpr</Source>
+                    <Source Name="MainSource">UnitTest.dpr</Source>
                 </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\hgide260.bpl">Embarcadero Mercurial Integration</Excluded_Packages>
@@ -195,9 +195,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\TestProject.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Win32\Debug\UnitTest.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>TestProject.exe</RemoteName>
+                        <RemoteName>UnitTest.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

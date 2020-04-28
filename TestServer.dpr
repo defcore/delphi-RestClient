@@ -1,4 +1,4 @@
-program ProjectTestServer;
+program TestServer;
 
 {$APPTYPE CONSOLE}
 
@@ -17,9 +17,9 @@ uses
   Neon.Core.Types,
   Server.Recources.Todos in 'Demo\Server.Recources.Todos.pas',
   Sample in 'Demo\Sample.pas',
-  Attributes in 'Source\Attributes.pas',
-  Interceptors in 'Source\Interceptors.pas',
-  RestCaller in 'Source\RestCaller.pas',
+  RestClient.Core.Attributes in 'Source\RestClient.Core.Attributes.pas',
+  RestClient.Core.Interceptor in 'Source\RestClient.Core.Interceptor.pas',
+  RestClient.Core.RestCaller in 'Source\RestClient.Core.RestCaller.pas',
   RestClient.Core in 'Source\RestClient.Core.pas';
 
 var

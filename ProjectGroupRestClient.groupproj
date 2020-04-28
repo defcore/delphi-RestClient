@@ -6,10 +6,10 @@
         <Projects Include="RestClient.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="Test\TestProject.dproj">
+        <Projects Include="Test\UnitTest.dproj">
             <Dependencies>RestClient.dproj</Dependencies>
         </Projects>
-        <Projects Include="ProjectTestServer.dproj">
+        <Projects Include="TestServer.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="PerformanceTests.dproj">
@@ -32,23 +32,23 @@
     <Target Name="RestClient:Make">
         <MSBuild Projects="RestClient.dproj" Targets="Make"/>
     </Target>
-    <Target Name="TestProject" DependsOnTargets="RestClient">
-        <MSBuild Projects="Test\TestProject.dproj"/>
+    <Target Name="UnitTest" DependsOnTargets="RestClient">
+        <MSBuild Projects="Test\UnitTest.dproj"/>
     </Target>
-    <Target Name="TestProject:Clean" DependsOnTargets="RestClient:Clean">
-        <MSBuild Projects="Test\TestProject.dproj" Targets="Clean"/>
+    <Target Name="UnitTest:Clean" DependsOnTargets="RestClient:Clean">
+        <MSBuild Projects="Test\UnitTest.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="TestProject:Make" DependsOnTargets="RestClient:Make">
-        <MSBuild Projects="Test\TestProject.dproj" Targets="Make"/>
+    <Target Name="UnitTest:Make" DependsOnTargets="RestClient:Make">
+        <MSBuild Projects="Test\UnitTest.dproj" Targets="Make"/>
     </Target>
-    <Target Name="ProjectTestServer">
-        <MSBuild Projects="ProjectTestServer.dproj"/>
+    <Target Name="TestServer">
+        <MSBuild Projects="TestServer.dproj"/>
     </Target>
-    <Target Name="ProjectTestServer:Clean">
-        <MSBuild Projects="ProjectTestServer.dproj" Targets="Clean"/>
+    <Target Name="TestServer:Clean">
+        <MSBuild Projects="TestServer.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="ProjectTestServer:Make">
-        <MSBuild Projects="ProjectTestServer.dproj" Targets="Make"/>
+    <Target Name="TestServer:Make">
+        <MSBuild Projects="TestServer.dproj" Targets="Make"/>
     </Target>
     <Target Name="PerformanceTests">
         <MSBuild Projects="PerformanceTests.dproj"/>
@@ -60,13 +60,13 @@
         <MSBuild Projects="PerformanceTests.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="RestClient;TestProject;ProjectTestServer;PerformanceTests"/>
+        <CallTarget Targets="RestClient;UnitTest;TestServer;PerformanceTests"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="RestClient:Clean;TestProject:Clean;ProjectTestServer:Clean;PerformanceTests:Clean"/>
+        <CallTarget Targets="RestClient:Clean;UnitTest:Clean;TestServer:Clean;PerformanceTests:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="RestClient:Make;TestProject:Make;ProjectTestServer:Make;PerformanceTests:Make"/>
+        <CallTarget Targets="RestClient:Make;UnitTest:Make;TestServer:Make;PerformanceTests:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

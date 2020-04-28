@@ -1,4 +1,4 @@
-unit Interceptors;
+unit RestClient.Core.Interceptor;
 
 interface
 
@@ -6,9 +6,9 @@ uses
   Spring.Interception,
   Spring.Reflection,
   System.Rtti,
-  RestCaller,
+  RestClient.Core.RestCaller,
   Sample,
-  Attributes;
+  RestClient.Core.Attributes;
 
 type
 
@@ -89,9 +89,17 @@ begin
 
         if (a.ClassNameIs(PathParam.ClassName)) then begin
           //writeln(value.TypeInfo.Name);
-          // TODO add other types of pathparams at the moment only integer is used
+
           tmpReplaceString := '{'+ p.Name+'}';
-          endpoint := StringReplace(endpoint, tmpReplaceString, IntToStr(value.AsInteger), [rfReplaceAll, rfIgnoreCase]);
+          endpoint := StringReplace(endpoint, tmpReplaceString, value.ToString, [rfReplaceAll, rfIgnoreCase]);
+
+         { case value.TypeInfo.Name of
+            'Integer' : endpoint := StringReplace(endpoint, tmpReplaceString, IntToStr(value.AsInteger), [rfReplaceAll, rfIgnoreCase]);
+            'Int64'   : endpoint := StringReplace(endpoint, tmpReplaceString, IntToStr(value), [rfReplaceAll, rfIgnoreCase]);
+          end;
+          }
+
+
 
           //Writeln('path ' + endpoint) ;
         end

@@ -177,9 +177,9 @@
         </DelphiCompile>
         <DCCReference Include="Demo\Sample.pas"/>
         <DCCReference Include="Demo\Server.Recources.Todos.pas"/>
-        <DCCReference Include="Source\Attributes.pas"/>
-        <DCCReference Include="Source\Interceptors.pas"/>
-        <DCCReference Include="Source\RestCaller.pas"/>
+        <DCCReference Include="Source\RestClient.Core.Attributes.pas"/>
+        <DCCReference Include="Source\RestClient.Core.Interceptor.pas"/>
+        <DCCReference Include="Source\RestClient.Core.RestCaller.pas"/>
         <DCCReference Include="Source\RestClient.Core.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
