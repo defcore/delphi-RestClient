@@ -179,7 +179,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="Demo\Server.Recources.Todos.pas"/>
-        <DCCReference Include="Demo\Sample.pas"/>
+        <DCCReference Include="Demo\Sample.Classes.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

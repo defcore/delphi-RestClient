@@ -7,13 +7,13 @@ uses
   System.Generics.Collections,
   Neon.Core.Attributes,
   Spring.Container.Common,
-  Sample;
+  Sample.Classes;
 
 type
 
 
 [PATH('http://localhost:8080/rest/app/v1')]
-ISampleRestClientMock = interface(IInvokable)
+ISampleRestClient = interface(IInvokable)
  ['{54E1D5F5-EE4B-4F69-8025-55ED83960C0D}']
 
   [GET('/todos/{id}')]

@@ -3,7 +3,7 @@ unit Server.Recources.Todos;
 interface
 
 uses
-  Sample,
+  Sample.Classes,
   System.Generics.Collections,
   WiRL.Core.Engine,
   WiRL.Core.Application,
@@ -31,7 +31,6 @@ type
     [GET, Path('/todos/{id}')]
     [Produces(TMediaType.APPLICATION_JSON)]
     function GetTodo([PathParam] id: Integer): TTodo; overload;
-
 
     [GET, Path('/todos/{id}/name/{name}')]
     [Produces(TMediaType.APPLICATION_JSON)]

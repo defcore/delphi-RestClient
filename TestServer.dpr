@@ -16,7 +16,7 @@ uses
   WiRL.Configuration.Neon,
   Neon.Core.Types,
   Server.Recources.Todos in 'Demo\Server.Recources.Todos.pas',
-  Sample in 'Demo\Sample.pas';
+  Sample.Classes in 'Demo\Sample.Classes.pas';
 
 var
   WiRLConsole: TWiRLConsoleBase;

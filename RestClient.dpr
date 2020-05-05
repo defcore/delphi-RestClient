@@ -12,35 +12,29 @@ uses
   Spring.Container.Common,
   Spring.Interception,
   System.Rtti,
-
   RestClient.Core.Attributes in 'Source\RestClient.Core.Attributes.pas',
   RestClient.Core.Interceptor in 'Source\RestClient.Core.Interceptor.pas',
   RestClient.Core.RestCaller in 'Source\RestClient.Core.RestCaller.pas',
   RestClient.Core in 'Source\RestClient.Core.pas',
-  Sample in 'Demo\Sample.pas',
   RestClient.Core.Exceptions in 'Source\RestClient.Core.Exceptions.pas',
-  SampleRestAPI in 'DemoWithMock\SampleRestAPI.pas',
-  RestClient.Core.RestConnection in 'Source\RestClient.Core.RestConnection.pas';
+  SampleRestAPI in 'Demo\SampleRestAPI.pas',
+  Sample.Classes in 'Demo\Sample.Classes.pas';
 
 var
-  sampleRestClient: ISampleRestClient;
-
   todo : TTodo;
   todos : TObjectList<TTodo>;
   boolResult : TResponse;
 
-  restAPI: ISampleRestClientMock;
+  sampleRestAPI: ISampleRestClient;
 begin
   try
     try
-    {
-      GlobalRestClient.RegisterClient<ISampleRestClient, TSampleRestClient>;
-      sampleRestClient := GlobalRestClient.Resolve<ISampleRestClient>;
+      sampleRestAPI := TRestClient.Resolve<ISampleRestClient>;
 
-      todo := sampleRestClient.GetTodo(1);
+      todo := sampleRestAPI.GetTodo(1);
       Writeln(todo.Title);
 
-      todos := sampleRestClient.GetTodos;
+      todos := sampleRestAPI.GetTodos;
       Writeln(todos.ToString);
 
       todo := TTodo.Create;
@@ -49,19 +43,12 @@ begin
       todo.userId := 1;
       todo.completed := false;
 
-      boolResult := sampleRestClient.CreateTodo(todo);
+      boolResult := sampleRestAPI.CreateTodo(todo);
       Writeln(boolResult.ToString);
-      }
-
-
-      // Mock test
-      //restAPI := TProxyGenerator.CreateInterfaceProxyWithoutTarget<ISampleRestClientMock>(TRestClientInterceptor.Create());
-      restAPI := RestClient<ISampleRestClientMock>.Resolve;
-
-      restAPI := RestClient2.Resolve<ISampleRestClientMock>;
-
-      todo := restAPI.GetTodo(1,'Alex');
+      
+      todo := sampleRestAPI.GetTodo(1,'Alex');
       Writeln(todo.Title);
+
 
       Readln;
     finally

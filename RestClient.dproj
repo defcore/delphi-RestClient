@@ -182,10 +182,9 @@
         <DCCReference Include="Source\RestClient.Core.Interceptor.pas"/>
         <DCCReference Include="Source\RestClient.Core.RestCaller.pas"/>
         <DCCReference Include="Source\RestClient.Core.pas"/>
-        <DCCReference Include="Demo\Sample.pas"/>
         <DCCReference Include="Source\RestClient.Core.Exceptions.pas"/>
-        <DCCReference Include="DemoWithMock\SampleRestAPI.pas"/>
-        <DCCReference Include="Source\RestClient.Core.RestConnection.pas"/>
+        <DCCReference Include="Demo\SampleRestAPI.pas"/>
+        <DCCReference Include="Demo\Sample.Classes.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

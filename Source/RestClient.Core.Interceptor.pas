@@ -19,7 +19,6 @@ uses
   Spring.Reflection,
   System.Rtti,
   RestClient.Core.RestCaller,
-  Sample,
   RestClient.Core.Attributes;
 
 
