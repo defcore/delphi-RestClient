@@ -41,6 +41,15 @@ type
     [Consumes(TMediaType.APPLICATION_JSON)]
     function CreateTodo([BodyParam] todo: TTodo): TResponse;
 
+
+    [GET, Path('/person/')]
+    [Produces(TMediaType.APPLICATION_JSON)]
+    function GetPerson([QueryParam] id: Integer): TTodo; overload;
+
+     [GET, Path('/person/')]
+    [Produces(TMediaType.APPLICATION_JSON)]
+    function GetPerson([QueryParam] id: Integer;[QueryParam]name: String): TTodo; overload;
+
   end;
 
 
@@ -60,6 +69,24 @@ begin
      Result := TTodo.Create;
      Result.id := 1;
      Result.title := 'Test TODO';
+     Result.userId := 1;
+     Result.completed := false;
+end;
+
+function TTodoResource.GetPerson([QueryParam] id: Integer): TTodo;
+begin
+     Result := TTodo.Create;
+     Result.id := id;
+     Result.title := 'Test TODO';
+     Result.userId := 1;
+     Result.completed := false;
+end;
+
+function TTodoResource.GetPerson([QueryParam] id: Integer; [QueryParam]name: String): TTodo;
+begin
+     Result := TTodo.Create;
+     Result.id := id;
+     Result.title := name;
      Result.userId := 1;
      Result.completed := false;
 end;

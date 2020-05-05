@@ -28,6 +28,12 @@ ISampleRestClient = interface(IInvokable)
   [POST('/todos')]
   function CreateTodo([BodyParam] param: TTodo): TResponse; overload;
 
+  [GET('/person/')]
+  function GetPerson([QueryParam] id: Integer): TTodo; overload;
+
+  [GET('/person/')]
+  function GetPerson([QueryParam] id: Integer;[QueryParam]name: String): TTodo; overload;
+
 end;
 
 implementation

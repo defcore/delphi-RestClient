@@ -41,6 +41,8 @@ end;
 
 PathParam = class(TBaseParam);
 
+QueryParam = class(TBaseParam);
+
 BodyParam = class(TBaseParam);
 
 implementation

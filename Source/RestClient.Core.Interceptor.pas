@@ -92,15 +92,13 @@ begin
           tmpReplaceString := '{'+ p.Name+'}';
           endpoint := StringReplace(endpoint, tmpReplaceString, value.ToString, [rfReplaceAll, rfIgnoreCase]);
 
-         { case value.TypeInfo.Name of
-            'Integer' : endpoint := StringReplace(endpoint, tmpReplaceString, IntToStr(value.AsInteger), [rfReplaceAll, rfIgnoreCase]);
-            'Int64'   : endpoint := StringReplace(endpoint, tmpReplaceString, IntToStr(value), [rfReplaceAll, rfIgnoreCase]);
-          end;
-          }
-
-
-
           //Writeln('path ' + endpoint) ;
+        end
+        else if (a.ClassNameIs('QueryParam')) then begin
+          if (endpoint.Contains('?')) then
+            endpoint := endpoint + '&' + p.Name + '=' + value.ToString
+          else
+            endpoint := endpoint + '?' + p.Name + '=' + value.ToString;
         end
         else if (a.ClassNameIs('BodyParam')) then begin
           if (value.IsObject) then
@@ -113,7 +111,7 @@ begin
       i := i + 1;
     end;
 
-    // proceed function call
+    // proceed function call not allowed with proxy
     //invocation.Proceed;
 
     // Do rest call
@@ -125,64 +123,6 @@ begin
 
 
   FreeAndNil( restCaller);
-
-
-
-   {
-
-  // TODO remove onyly for testing reasons
-
-  // get class Attributes
-  for pathAttribute in invocation.Method.Parent.GetCustomAttributes<PATH> do begin
-    Writeln(pathAttribute.path);
-  end;
-
-  // get parameter value
-  for value in invocation.Arguments do begin
-    if value.IsType<Integer> then
-      Writeln(value.AsInteger)
-    else if value.IsType<String> then
-       Writeln(value.AsString)
-    else if value.IsType<TObject> then
-      Writeln(value.AsObject.ClassName);
-  end;
-
-
-  // get parameter attributes
-//  for p in invocation.Method.GetParameters do
-//    for a in p.GetAttributes do
-//      Writeln('Attribute "', a.ClassName, '" found on parameter "', p.Name, '"');
-
-  // get return type
-  invocation.Result;
-
-
-  // get method attributes
-  for getAttribute in invocation.Method.GetCustomAttributes<GET> do begin
-    Writeln(getAttribute.path);
-  end;
-
-  for postAttribute in invocation.Method.GetCustomAttributes<POST> do begin
-    Writeln(postAttribute.path);
-  end;
-
-  invocation.Method.Parent ;
-
-  // set header global variable
-  //for field in invocation.Method.Parent.GetFields do begin
-  //  if field.HasCustomAttribute(Header) then begin
-  //    headerAttr := field.GetCustomAttribute<Header>;
-  //    Writeln(headerAttr.Name);
-  //  end;
-  //end;
-
-
-
-
-  // proceed function call
-//  invocation.Proceed;
-  Writeln('After ', invocation.Method.Name, '....');
-  }
 end;
 
 

@@ -37,6 +37,11 @@ begin
       todos := sampleRestAPI.GetTodos;
       Writeln(todos.ToString);
 
+      //PathParam samples
+      todo := sampleRestAPI.GetTodo(1,'Alex');
+      Writeln(todo.Title);
+
+      //BodyParam samples
       todo := TTodo.Create;
       todo.id := 1;
       todo.title := 'Test TODO';
@@ -45,10 +50,13 @@ begin
 
       boolResult := sampleRestAPI.CreateTodo(todo);
       Writeln(boolResult.ToString);
-      
-      todo := sampleRestAPI.GetTodo(1,'Alex');
+
+      //QueryParam samples
+      sampleRestAPI.GetPerson(1);
       Writeln(todo.Title);
 
+      sampleRestAPI.GetPerson(1, 'Alex');
+      Writeln(todo.Title);
 
       Readln;
     finally
