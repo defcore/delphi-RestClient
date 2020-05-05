@@ -187,7 +187,7 @@ begin
       else if (AType = TRestType.PUT) then
         resResourceJSON.PUT(BodyParam(ABodyParam))
       else if (AType = TRestType.DELETE) then
-        raise EBodyParamNotAllowed.Create('Not allowed to use BodyParams with a DELETE request');
+       // raise EBodyParamNotAllowed.Create('Not allowed to use BodyParams with a DELETE request');
         resResourceJSON.DELETE(); // TODO make exception not possible to pass bodyparam
 
       //Writeln(resResourceJSON.ResponseAsString);

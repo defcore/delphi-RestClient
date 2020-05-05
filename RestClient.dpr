@@ -12,12 +12,15 @@ uses
   Spring.Container.Common,
   Spring.Interception,
   System.Rtti,
+
   RestClient.Core.Attributes in 'Source\RestClient.Core.Attributes.pas',
   RestClient.Core.Interceptor in 'Source\RestClient.Core.Interceptor.pas',
   RestClient.Core.RestCaller in 'Source\RestClient.Core.RestCaller.pas',
   RestClient.Core in 'Source\RestClient.Core.pas',
   Sample in 'Demo\Sample.pas',
-  RestClient.Core.Exceptions in 'Source\RestClient.Core.Exceptions.pas';
+  RestClient.Core.Exceptions in 'Source\RestClient.Core.Exceptions.pas',
+  SampleRestAPI in 'DemoWithMock\SampleRestAPI.pas',
+  RestClient.Core.RestConnection in 'Source\RestClient.Core.RestConnection.pas';
 
 var
   sampleRestClient: ISampleRestClient;
@@ -25,9 +28,12 @@ var
   todo : TTodo;
   todos : TObjectList<TTodo>;
   boolResult : TResponse;
+
+  restAPI: ISampleRestClientMock;
 begin
   try
     try
+    {
       GlobalRestClient.RegisterClient<ISampleRestClient, TSampleRestClient>;
       sampleRestClient := GlobalRestClient.Resolve<ISampleRestClient>;
 
@@ -45,6 +51,17 @@ begin
 
       boolResult := sampleRestClient.CreateTodo(todo);
       Writeln(boolResult.ToString);
+      }
+
+
+      // Mock test
+      //restAPI := TProxyGenerator.CreateInterfaceProxyWithoutTarget<ISampleRestClientMock>(TRestClientInterceptor.Create());
+      restAPI := RestClient<ISampleRestClientMock>.Resolve;
+
+      restAPI := RestClient2.Resolve<ISampleRestClientMock>;
+
+      todo := restAPI.GetTodo(1,'Alex');
+      Writeln(todo.Title);
 
       Readln;
     finally
@@ -52,7 +69,9 @@ begin
       FreeAndNil(todos);
     end;
   except
-    on E: Exception do
+    on E: Exception do BEGIN
       Writeln(E.ClassName, ': ', E.Message);
+       Readln;
+    END;
   end;
 end.

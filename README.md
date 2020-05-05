@@ -84,7 +84,7 @@ todo := sampleRestClient.GetTodo(1);
 
 ## Open questions
 
-* Is there a way of doing something similar of the interceptor instead of using Spring. 
+* Is there a way of doing something similar then the interceptor instead of using Spring. 
 * Is it possible to use only the interface or the object declaration without a implementation. Beacause it is to much boilerplate code.
 * Maybe use delphi default client objects instead wirl client 
 

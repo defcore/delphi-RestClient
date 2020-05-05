@@ -3,7 +3,6 @@ unit Sample;
 interface
 
 uses
-  RestClient.Core.Attributes,
   System.Generics.Collections,
   Neon.Core.Attributes,
   Spring.Container.Common;

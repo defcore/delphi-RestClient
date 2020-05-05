@@ -3,12 +3,7 @@ unit RestClient.Core.Interceptor;
 interface
 
 uses
-  Spring.Interception,
-  Spring.Reflection,
-  System.Rtti,
-  RestClient.Core.RestCaller,
-  Sample,
-  RestClient.Core.Attributes;
+  Spring.Interception;
 
 type
 
@@ -20,7 +15,12 @@ TRestClientInterceptor = class(TInterfacedObject, IInterceptor)
 implementation
 
 uses
-  SysUtils;
+  SysUtils,
+  Spring.Reflection,
+  System.Rtti,
+  RestClient.Core.RestCaller,
+  Sample,
+  RestClient.Core.Attributes;
 
 
 procedure TRestClientInterceptor.Intercept(const invocation: IInvocation);
@@ -115,7 +115,7 @@ begin
     end;
 
     // proceed function call
-    invocation.Proceed;
+    //invocation.Proceed;
 
     // Do rest call
     if (bodyParam = nil) then

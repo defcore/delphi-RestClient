@@ -16,11 +16,7 @@ uses
   WiRL.Configuration.Neon,
   Neon.Core.Types,
   Server.Recources.Todos in 'Demo\Server.Recources.Todos.pas',
-  Sample in 'Demo\Sample.pas',
-  RestClient.Core.Attributes in 'Source\RestClient.Core.Attributes.pas',
-  RestClient.Core.Interceptor in 'Source\RestClient.Core.Interceptor.pas',
-  RestClient.Core.RestCaller in 'Source\RestClient.Core.RestCaller.pas',
-  RestClient.Core in 'Source\RestClient.Core.pas';
+  Sample in 'Demo\Sample.pas';
 
 var
   WiRLConsole: TWiRLConsoleBase;

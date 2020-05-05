@@ -14,9 +14,7 @@ uses
   WiRL.Core.MessageBody.Default,
   WiRL.Core.Auth.Context,
   WiRL.http.Request,
-  WiRL.http.Response,
-  Interceptors,
-  RestCaller;
+  WiRL.http.Response;
 
 type
 
@@ -32,7 +30,12 @@ type
 
     [GET, Path('/todos/{id}')]
     [Produces(TMediaType.APPLICATION_JSON)]
-    function GetTodo([PathParam] id: Integer): TTodo;
+    function GetTodo([PathParam] id: Integer): TTodo; overload;
+
+
+    [GET, Path('/todos/{id}/name/{name}')]
+    [Produces(TMediaType.APPLICATION_JSON)]
+    function GetTodo([PathParam] id: Integer; [PathParam] name: String): TTodo; overload;
 
     [POST, Path('/todos')]
     [Produces(TMediaType.APPLICATION_JSON)]
@@ -43,6 +46,15 @@ type
 
 
 implementation
+
+function TTodoResource.GetTodo([PathParam] id: Integer; [PathParam] name: String): TTodo;
+begin
+  Result := TTodo.Create;
+     Result.id := id;
+     Result.title := name;
+     Result.userId := 1;
+     Result.completed := false;
+end;
 
 function TTodoResource.GetTodo([PathParam] id: Integer): TTodo;
 begin
