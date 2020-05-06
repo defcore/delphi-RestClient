@@ -13,6 +13,7 @@ uses
   WiRL.http.URL,
   WiRL.Core.MessageBody.Default,
   WiRL.Core.Auth.Context,
+  WiRL.Core.Exceptions,
   WiRL.http.Request,
   WiRL.http.Response;
 
@@ -22,7 +23,7 @@ type
  TTodoResource = class
   private
     [Context] Request: TWiRLRequest;
-    [Context] AuthContext: TWiRLAuthContext;
+
   public
     [GET, Path('/todos')]
     [Produces(TMediaType.APPLICATION_JSON)]
@@ -42,13 +43,18 @@ type
     function CreateTodo([BodyParam] todo: TTodo): TResponse;
 
 
-    [GET, Path('/person/')]
+    [GET, Path('/person')]
     [Produces(TMediaType.APPLICATION_JSON)]
     function GetPerson([QueryParam] id: Integer): TTodo; overload;
 
-     [GET, Path('/person/')]
+    [GET, Path('/persons')]
     [Produces(TMediaType.APPLICATION_JSON)]
-    function GetPerson([QueryParam] id: Integer;[QueryParam]name: String): TTodo; overload;
+    function GetPerson([QueryParam] id: Integer; [QueryParam]name: String): TTodo; overload;
+
+
+    [GET, Path('/exception')]
+    [Produces(TMediaType.APPLICATION_JSON)]
+    function GetException: TTodo; overload;
 
   end;
 
@@ -82,7 +88,7 @@ begin
      Result.completed := false;
 end;
 
-function TTodoResource.GetPerson([QueryParam] id: Integer; [QueryParam]name: String): TTodo;
+function TTodoResource.GetPerson([QueryParam] id: Integer; [QueryParam] name: String): TTodo;
 begin
      Result := TTodo.Create;
      Result.id := id;
@@ -119,6 +125,13 @@ begin
     Result.Result := false;
 
   Writeln(todo.ToString);
+end;
+
+
+function TTodoResource.GetException: TTodo;
+begin
+  Result := TTodo.Create;
+  raise EWiRLNotImplementedException.Create('My Message', 'TTodoResource', 'GetException');
 end;
 
 

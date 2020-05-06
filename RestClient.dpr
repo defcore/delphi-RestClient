@@ -23,7 +23,7 @@ uses
 var
   todo : TTodo;
   todos : TObjectList<TTodo>;
-  boolResult : TResponse;
+  response : TResponse;
 
   sampleRestAPI: ISampleRestClient;
 begin
@@ -48,20 +48,29 @@ begin
       todo.userId := 1;
       todo.completed := false;
 
-      boolResult := sampleRestAPI.CreateTodo(todo);
-      Writeln(boolResult.ToString);
+      response := sampleRestAPI.CreateTodo(todo);
+      Writeln(response.ToString);
 
       //QueryParam samples
-      sampleRestAPI.GetPerson(1);
+      todo := sampleRestAPI.GetPerson(1);
       Writeln(todo.Title);
 
-      sampleRestAPI.GetPerson(1, 'Alex');
+      todo := sampleRestAPI.GetPerson(1, 'Alex');
       Writeln(todo.Title);
+
+     { try
+        todo := sampleRestAPI.RaiseException;
+      Except on E: Exception do begin
+        Writeln(E.Message);
+      end;
+
+      end;  }
 
       Readln;
     finally
       FreeAndNil(todo);
       FreeAndNil(todos);
+      FreeAndNil(response);
     end;
   except
     on E: Exception do BEGIN

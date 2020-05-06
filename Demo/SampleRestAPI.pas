@@ -20,7 +20,7 @@ ISampleRestClient = interface(IInvokable)
   function GetTodo([PathParam]id: Integer): TTodo; overload;
 
   [GET('/todos/{id}/name/{name}')]
-  function GetTodo([PathParam]id: Integer; [PathParam]name: String): TTodo; overload;
+  function GetTodo([PathParam]id: Integer; [PathParam] name: String): TTodo; overload;
 
   [GET('/todos')]
   function GetTodos: TObjectList<TTodo>; overload;
@@ -28,11 +28,14 @@ ISampleRestClient = interface(IInvokable)
   [POST('/todos')]
   function CreateTodo([BodyParam] param: TTodo): TResponse; overload;
 
-  [GET('/person/')]
+  [GET('/person')]
   function GetPerson([QueryParam] id: Integer): TTodo; overload;
 
-  [GET('/person/')]
-  function GetPerson([QueryParam] id: Integer;[QueryParam]name: String): TTodo; overload;
+  [GET('/persons')]
+  function GetPerson([QueryParam] id: Integer; [QueryParam] name: String): TTodo; overload;
+
+  [GET('/exception')]
+  function RaiseException: TTodo; overload;
 
 end;
 
