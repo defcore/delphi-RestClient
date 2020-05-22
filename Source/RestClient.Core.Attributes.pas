@@ -7,7 +7,7 @@ type
 
 {$SCOPEDENUMS ON}
 
-TBaseRequest = class(TCustomAttribute)
+TBasePath = class(TCustomAttribute)
    private
     FPath: String;
   public
@@ -15,7 +15,10 @@ TBaseRequest = class(TCustomAttribute)
     property Path: String read FPath write FPath;
 end;
 
-PATH = class(TBaseRequest);
+PATH = class(TBasePath);
+
+
+TBaseRequest = class(TCustomAttribute);
 
 GET = class(TBaseRequest);
 
@@ -47,7 +50,7 @@ BodyParam = class(TBaseParam);
 
 implementation
 
-constructor TBaseRequest.Create(const APath: String);
+constructor TBasePath.Create(const APath: String);
 begin
   inherited Create;
   FPath := APath;

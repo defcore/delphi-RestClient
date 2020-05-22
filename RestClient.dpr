@@ -29,10 +29,14 @@ var
 begin
   try
     try
+
       sampleRestAPI := TRestClient.Resolve<ISampleRestClient>;
 
       todo := sampleRestAPI.GetTodo(1);
       Writeln(todo.Title);
+
+
+
 
       todos := sampleRestAPI.GetTodos;
       Writeln(todos.ToString);

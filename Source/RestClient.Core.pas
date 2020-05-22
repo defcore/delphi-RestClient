@@ -11,7 +11,8 @@ uses
   RestClient.Core.Interceptor;
 
 type
-  TRestClient = record
+  TRestClient = class
+
     public class function Resolve<API:IInterface>: API; static; inline;
   end;
 

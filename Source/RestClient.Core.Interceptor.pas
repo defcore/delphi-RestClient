@@ -29,6 +29,7 @@ var
   postAttribute: POST;
   putAttribute: PUT;
   deleteAttribute: DELETE;
+  pathMethodAttribute: Path;
 
   // at the moment only one bodyparam can be added to a function
   bodyParam : TObject;
@@ -49,33 +50,35 @@ begin
   //Writeln('Before ', invocation.Method.Parent.Name, '.', invocation.Method.Name, '....');
   bodyParam := nil;
 
+  // get base path of class
   pathAttribute := invocation.Method.Parent.GetCustomAttribute<PATH>;
   if pathAttribute <> nil then begin
     restCaller := TRestCaller.Create(nil);
     restCaller.SetServerURL(pathAttribute.Path);
 
+    pathMethodAttribute := invocation.Method.GetCustomAttribute<Path>;
+    if (pathMethodAttribute <> nil) then begin
+      endpoint := pathMethodAttribute.Path;
+    end;
+
     // Set endpoint and request type
     getAttribute := invocation.Method.GetCustomAttribute<GET>;
     if (getAttribute <> nil) then begin
-      endpoint := getAttribute.Path;
       restType := TRestType.GET;
     end;
 
     postAttribute := invocation.Method.GetCustomAttribute<POST>;
     if (postAttribute <> nil) then begin
-      endpoint := postAttribute.Path;
       restType := TRestType.POST;
     end;
 
     putAttribute := invocation.Method.GetCustomAttribute<PUT>;
     if (putAttribute <> nil) then begin
-      endpoint := putAttribute.Path;
       restType := TRestType.PUT;
     end;
 
     deleteAttribute := invocation.Method.GetCustomAttribute<DELETE>;
     if (deleteAttribute <> nil) then begin
-      endpoint := deleteAttribute.Path;
       restType := TRestType.DELETE;
     end;
 
