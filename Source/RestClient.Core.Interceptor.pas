@@ -8,7 +8,12 @@ uses
 type
 
 TRestClientInterceptor = class(TInterfacedObject, IInterceptor)
+  private
+    FBasePath: String;
+    FAuthToken: String;
   public
+    constructor Create(const ABasePath: String); overload;
+    constructor Create(const ABasePath: String; const AAuthToken: String); overload;
     procedure Intercept(const invocation: IInvocation);
   end;
 
@@ -21,6 +26,17 @@ uses
   RestClient.Core.RestCaller,
   RestClient.Core.Attributes;
 
+constructor TRestClientInterceptor.Create(const ABasePath: String);
+begin
+  FBasePath := ABasePath;
+  FAuthToken := '';
+end;
+
+constructor TRestClientInterceptor.Create(const ABasePath: String; const AAuthToken: String);
+begin
+  FBasePath := ABasePath;
+  FAuthToken := AAuthToken
+end;
 
 procedure TRestClientInterceptor.Intercept(const invocation: IInvocation);
 var
@@ -46,6 +62,7 @@ var
   tmpReplaceString : String;
   arguments : TArray<TValue>;
   i : Integer;
+  url: String;
 begin
   //Writeln('Before ', invocation.Method.Parent.Name, '.', invocation.Method.Name, '....');
   bodyParam := nil;
@@ -54,7 +71,17 @@ begin
   pathAttribute := invocation.Method.Parent.GetCustomAttribute<PATH>;
   if pathAttribute <> nil then begin
     restCaller := TRestCaller.Create(nil);
-    restCaller.SetServerURL(pathAttribute.Path);
+
+    // set url
+    if (FBasePath <> '') then
+      url := FBasePath + pathAttribute.Path
+    else
+      url := pathAttribute.Path;
+    restCaller.SetServerURL(url);
+
+    // add headers
+    if (FAuthToken <> '') then
+      restCaller.AddHeader('Authorization', FAuthToken);
 
     pathMethodAttribute := invocation.Method.GetCustomAttribute<Path>;
     if (pathMethodAttribute <> nil) then begin
@@ -116,6 +143,8 @@ begin
 
     // proceed function call not allowed with proxy
     //invocation.Proceed;
+
+
 
     // Do rest call
     if (bodyParam = nil) then

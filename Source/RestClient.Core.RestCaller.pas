@@ -16,7 +16,8 @@ uses
   WiRL.http.Client,
   WiRL.Client.CustomResource,
   WiRL.Client.Resource,
-  WiRL.Client.Resource.JSON;
+  WiRL.Client.Resource.JSON,
+  System.Generics.Collections;
 
 type
 
@@ -37,6 +38,7 @@ TRestCaller = class(TDataModule)
     WiRLClient: TWiRLClient;
     WiRLApplication: TWiRLClientApplication;
     ServerURL: STring;
+    Headers: TDictionary<String, String>;
 
     procedure DataModuleDestroy(Sender: TObject);
     function DoBuildSerializerConfig: INeonConfiguration;
@@ -47,19 +49,26 @@ TRestCaller = class(TDataModule)
     constructor Create(AOwner: TComponent); override;
     //constructor  Create( const ServerURL : String);
     procedure SetServerURL(const AServerURL: String);
+    procedure AddHeader(const key, value: String);
     function DoRestCall(const ARescource: String; const AType: TRestType; AResultType: TRttiType): TObject; overload;
     function DoRestCall(const ARescource: String; const AType: TRestType; AResultType: TRttiType; ABodyParam: TObject): TObject; overload;
   end;
 
 implementation
 
-uses   System.TypInfo,
-     Neon.Core.Serializers.RTL;
+uses
+  System.TypInfo,
+  Neon.Core.Serializers.RTL;
 
 procedure TRestCaller.SetServerURL(const AServerURL: String);
 begin
   ServerURL := AServerURL;
   WiRLClient.WiRLEngineURL := ServerURL;
+end;
+
+procedure TRestCaller.AddHeader(const key, value: String);
+begin
+  Headers.Add(key, value);
 end;
 
 class function TNeonConfig.BuildSerializerConfig: INeonConfiguration;
@@ -95,6 +104,7 @@ end;
 
 function TRestCaller.DoRestCall(const ARescource: String; const AType: TRestType; AResultType: TRttiType): TObject;
 var
+  headerItem: TPair<String, String>;
   resResourceJSON: TWiRLClientResourceJSON;
 begin
   try
@@ -102,6 +112,11 @@ begin
     try
       resResourceJSON.Application := WiRLApplication;
       resResourceJSON.Resource := ARescource;
+
+      // add headers if exists
+      if (Headers <> nil) and (Headers.Count > 0) then
+        for headerItem in Headers do
+          resResourceJSON.Client.Request.HeaderFields.Add(headerItem.Key + ': ' +   headerItem.Value);
 
       if (AType = TRestType.GET) then
         resResourceJSON.GET()
@@ -120,6 +135,9 @@ begin
           Writeln(E.Message);
       end;
     finally
+      // clean headers
+      resResourceJSON.Client.Request.HeaderFields.Clear;
+
       // TODO freeandnil
       resResourceJSON.DisposeOf;
     end;
@@ -170,6 +188,8 @@ end;
 
 constructor TRestCaller.Create(AOwner: TComponent);
 begin
+  Headers := TDictionary<String,String>.Create;
+
   WiRLClient := TWiRLClient.Create(Self);
   WiRLClient.WiRLEngineURL := ServerURL;
   WiRLClient.ConnectTimeout := 3000;
@@ -184,6 +204,7 @@ procedure TRestCaller.DataModuleDestroy(Sender: TObject);
 begin
   WiRLApplication.DisposeOf;
   WiRLClient.DisposeOf;
+  Headers.DisposeOf;
 end;
 
 function TRestCaller.DoBuildSerializerConfig: INeonConfiguration;

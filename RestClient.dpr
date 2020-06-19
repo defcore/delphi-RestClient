@@ -30,7 +30,7 @@ begin
   try
     try
 
-      sampleRestAPI := TRestClient.Resolve<ISampleRestClient>;
+      sampleRestAPI := GlobalRestClient.Resolve<ISampleRestClient>;
 
       todo := sampleRestAPI.GetTodo(1);
       Writeln(todo.Title);
