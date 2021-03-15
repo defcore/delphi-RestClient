@@ -33,6 +33,7 @@ begin
       sampleRestAPI := GlobalRestClient.Resolve<ISampleRestClient>;
 
       todo := sampleRestAPI.GetTodo(1);
+
       Writeln(todo.Title);
 
 

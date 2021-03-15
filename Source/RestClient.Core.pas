@@ -10,6 +10,7 @@ uses
   Spring.Container,
   Spring.Container.Common,
   Spring.Interception,
+  Neon.Core.Types,
   RestClient.Core.Interceptor;
 
 type
@@ -18,6 +19,7 @@ type
       function Resolve<API:IInterface>: API; overload;
       function Resolve<API:IInterface>(const ABasePath: String): API; overload;
       function Resolve<API:IInterface>(const ABasePath: String; const AAuthToken: String): API; overload;
+      function Resolve<API:IInterface>(const ABasePath: String; const ANeonCase: TNeonCase): API; overload;
   end;
 
 var
@@ -38,6 +40,11 @@ end;
 function TRestClient.Resolve<API>(const ABasePath: String; const AAuthToken: String): API;
 begin
   Result := TProxyGenerator.CreateInterfaceProxyWithoutTarget<API>(TRestClientInterceptor.Create(ABasePath, AAuthToken));
+end;
+
+function TRestClient.Resolve<API>(const ABasePath: String; const ANeonCase: TNeonCase): API;
+begin
+  Result := TProxyGenerator.CreateInterfaceProxyWithoutTarget<API>(TRestClientInterceptor.Create(ABasePath, ANeonCase));
 end;
 
 initialization

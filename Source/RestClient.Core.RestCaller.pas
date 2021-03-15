@@ -38,6 +38,7 @@ TRestCaller = class(TDataModule)
     WiRLClient: TWiRLClient;
     WiRLApplication: TWiRLClientApplication;
     ServerURL: STring;
+    NeonCase: TNeonCase;
     Headers: TDictionary<String, String>;
 
     procedure DataModuleDestroy(Sender: TObject);
@@ -49,6 +50,7 @@ TRestCaller = class(TDataModule)
     constructor Create(AOwner: TComponent); override;
     //constructor  Create( const ServerURL : String);
     procedure SetServerURL(const AServerURL: String);
+    procedure SetNeonCase(const ANeonCase: TNeonCase);
     procedure AddHeader(const key, value: String);
     function DoRestCall(const ARescource: String; const AType: TRestType; AResultType: TRttiType): TObject; overload;
     function DoRestCall(const ARescource: String; const AType: TRestType; AResultType: TRttiType; ABodyParam: TObject): TObject; overload;
@@ -65,6 +67,12 @@ begin
   ServerURL := AServerURL;
   WiRLClient.WiRLEngineURL := ServerURL;
 end;
+
+procedure TRestCaller.SetNeonCase(const ANeonCase: TNeonCase);
+begin
+  NeonCase := ANeonCase;
+end;
+
 
 procedure TRestCaller.AddHeader(const key, value: String);
 begin
@@ -172,7 +180,7 @@ begin
       //Writeln(resResourceJSON.ResponseAsString);
 
       try
-        Result := TNeon.JSONToObject(AResultType, resResourceJSON.Response,DoBuildSerializerConfig);
+        Result := TNeon.JSONToObject(AResultType, resResourceJSON.Response, DoBuildSerializerConfig);
       except  on E: Exception do
           Writeln(E.Message);
       end;
@@ -198,6 +206,9 @@ begin
   WiRLApplication.Client := WiRLClient;
   WiRLApplication.DefaultMediaType := 'application/json;';    // TODO create Attribute
   WiRLApplication.AppName := '';
+
+  // default value
+  //NeonCase := TNeonCase.SnakeCase;
 end;
 
 procedure TRestCaller.DataModuleDestroy(Sender: TObject);
@@ -210,6 +221,7 @@ end;
 function TRestCaller.DoBuildSerializerConfig: INeonConfiguration;
 begin
   Result := TNeonConfig.BuildSerializerConfig;
+  Result.SetMemberCase(NeonCase);
 end;
 
 procedure TRestCaller.ObjectToJSON(AContent: TMemoryStream; AObject: TObject);
